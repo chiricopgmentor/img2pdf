@@ -53,6 +53,7 @@ def create_pdf(dir_path, pdfdir_path):
         lev = max(img_w / a4_width, img_h / a4_height)
         pdf.drawInlineImage(img, (a4_width - (img_w / lev)) / 2, (a4_height - (img_h / lev)) / 2, width = img_w / lev, height = img_h / lev)
         pdf.showPage()
+        print(f'{os.path.basename(print_img)}保存完了')
 
     # ファイルを保存
     pdf.save()
