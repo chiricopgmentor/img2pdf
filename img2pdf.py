@@ -7,7 +7,7 @@
 # get_ipython().system('pip install reportlab')
 
 
-# In[1]:
+# In[13]:
 
 
 import sys, os, re
@@ -20,7 +20,7 @@ from reportlab.lib.utils import ImageReader
 from PIL import Image
 
 
-# In[2]:
+# In[14]:
 
 
 # 対象ディレクトリの画像ファイルリストを取得
@@ -33,7 +33,7 @@ def get_print_img_list(dir_path):
     return print_img_list
 
 
-# In[11]:
+# In[15]:
 
 
 # 対象ディレクトリの画像を使ってPDF作成
@@ -50,17 +50,16 @@ def create_pdf(dir_path, pdfdir_path):
     for print_img in print_img_list:
         img = Image.open(print_img)
         (img_w, img_h) = img.size
-        lev = max(img_w / a4_width, img_h / a4_height)
-        pdf.drawInlineImage(img, (a4_width - (img_w / lev)) / 2, (a4_height - (img_h / lev)) / 2, width = img_w / lev, height = img_h / lev)
+        pdf.setPageSize((img_w, img_h))
+        pdf.drawInlineImage(img, 0, 0, width = img_w, height = img_h)
         pdf.showPage()
-        print(f'{os.path.basename(print_img)}保存完了')
-
+        print(f'{os.path.basename(print_img)}保存')
     # ファイルを保存
     pdf.save()
     print('完了')
 
 
-# In[12]:
+# In[17]:
 
 
 if __name__ == '__main__':
